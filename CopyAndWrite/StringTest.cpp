@@ -139,10 +139,26 @@ int main(void)
 	s2.print();
 	s3.print();
 
+	cout<<"*********************"<<endl;
 	String s4 = "test";
 
+	s1 = s4;
 	s2 = s4;
+	cout << "s1's use_count = " << s1.use_count() << endl;
+	cout << "s2's use_count = " << s2.use_count() << endl;
+	cout << "s3's use_count = " << s3.use_count() << endl;
+	cout << "s4's use_count = " << s4.use_count() << endl;
+	printf("s1's address = %p\n", s1.c_str());
+	printf("s2's address = %p\n", s2.c_str());
+	printf("s3's address = %p\n", s3.c_str());
+	printf("s4's address = %p\n", s4.c_str());
+	s1.print();
+	s2.print();
+	s3.print();
+	s4.print();
 
+	cout<<"*************************"<<endl;
+	s2[1] = 'A';
 	cout << "s1's use_count = " << s1.use_count() << endl;
 	cout << "s2's use_count = " << s2.use_count() << endl;
 	cout << "s3's use_count = " << s3.use_count() << endl;
