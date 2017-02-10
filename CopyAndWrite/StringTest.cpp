@@ -6,6 +6,22 @@ using std::endl;
 
 class String
 {
+private:
+	class charproxy
+	{
+	public:
+		charproxy(String& str,int index);
+
+		char& operator=(const char ch);
+		operator char()
+		{
+			cout<<"charproxy::operator char()"<<endl;
+			return _obstr._pstr[idx];
+		}
+	private:
+		String& _obstr;
+		int idx;
+	};
 public:
 	String();
 	String(const char * pstr);
@@ -13,9 +29,9 @@ public:
 	~String();
 	String & operator=(const String & rhs);
 
-	char & operator[](int idx);
-	const char & operator[](int idx) const;
-
+	//char & operator[](int idx);
+	//const char & operator[](int idx) const;
+	charproxy operator[](int index);
 	int size();
 
 	int use_count();
@@ -50,6 +66,47 @@ String::String(const char * pstr)
 	_pstr[len + 1] = 1;//引用计数初始值为１
 }
 
+String::charproxy::charproxy(String&str,int index)
+	:_obstr(str)
+	,idx(index)
+{
+	cout<<"charproxy()"<<endl;
+}
+
+String::charproxy String::operator[](int index)
+{
+	return charproxy(*this,index);
+}
+
+char& String::charproxy::operator=(const char ch)
+{
+	if(idx >= 0 && idx < _obstr.size())
+	{
+		if(_obstr._pstr[_obstr.size()+ 1] == 1)
+		{
+			_obstr._pstr[idx] = ch;
+			return _obstr._pstr[idx];
+		}
+		else
+		{
+			--_obstr._pstr[_obstr.size() + 1];
+			
+			char * ptmp = _obstr._pstr;
+			_obstr._pstr= new char[_obstr.size() + 2];
+			strcpy(_obstr._pstr, ptmp);
+			_obstr._pstr[_obstr.size() + 1] = 1;
+			_obstr._pstr[idx] = ch;
+			return _obstr._pstr[idx];
+		}
+	}
+	else
+	{
+		static char nullchar = '\0';
+		cout << "下标越界" << endl;
+		return nullchar;
+	}
+
+}
 
 String::String(const String & rhs)
 : _pstr(rhs._pstr)
@@ -81,6 +138,7 @@ String::~String()
 	}
 }
 
+#if 0
 const char & String::operator[](int idx) const
 {
 	cout << "const operator[]()" << endl;
@@ -111,6 +169,7 @@ char & String::operator[](int idx)
 		return nullchar;
 	}
 }
+#endif
 
 int String::size()
 {
@@ -157,49 +216,16 @@ int main(void)
 	s3.print();
 	s4.print();
 
-	cout<<"*************************"<<endl;
-	s2[1] = 'A';
-	cout << "s1's use_count = " << s1.use_count() << endl;
-	cout << "s2's use_count = " << s2.use_count() << endl;
-	cout << "s3's use_count = " << s3.use_count() << endl;
-	cout << "s4's use_count = " << s4.use_count() << endl;
-	printf("s1's address = %p\n", s1.c_str());
+	cout<<"******************read elem ****************"<<endl;
+	cout<<s2[1]<<endl;
 	printf("s2's address = %p\n", s2.c_str());
-	printf("s3's address = %p\n", s3.c_str());
-	printf("s4's address = %p\n", s4.c_str());
-	s1.print();
-	s2.print();
-	s3.print();
-	s4.print();
-/*
-	s3[0] = 'H';
-	cout << endl;
-	cout << "修改s3之后" << endl;
-	cout << "s1's use_count = " << s1.use_count() << endl;
-	cout << "s2's use_count = " << s2.use_count() << endl;
-	printf("s1's address = %p\n", s1.c_str());
+
+
+	cout<<"******************modify s2 elem ****************"<<endl;
+	s2[1] = 'F';
+	cout<<s2[1]<<endl;
 	printf("s2's address = %p\n", s2.c_str());
-	printf("s3's address = %p\n", s3.c_str());
-	s1.print();
-	s2.print();
-	s3.print();
-
-	cout << endl << "执行读操作" << endl;
-	cout << s1[0] << endl;
-	cout << "s1's use_count = " << s1.use_count() << endl;
-	cout << "s2's use_count = " << s2.use_count() << endl;
-	printf("s1's address = %p\n", s1.c_str());
-	printf("s2's address = %p\n", s2.c_str());
-	printf("s3's address = %p\n", s3.c_str());
-	s1.print();
-	s2.print();
-	s3.print();
-
-	cout << endl << endl;
-	const String s4 = "wangdao";
-	cout << s4[0] << endl;
-	*/
-
+	
 
 return 0;
 }
