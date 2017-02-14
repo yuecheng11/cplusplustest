@@ -98,7 +98,7 @@ int main()
 	st.push("test");
 	cout<<"get top elem: "<<st.GetTopElem()<<endl;
 
-	for(int i = 0;i<10;i++)
+	for(int i = 0;i<31;i++)
 	{
 		ostringstream oss;
 		oss<<"index: "<<i;
