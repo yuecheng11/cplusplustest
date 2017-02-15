@@ -31,8 +31,11 @@ int main(void)
 		cout << x << " ";
 		stackInt.pop();
 	}
+	cout<<endl;
+	cout << stackInt.size() << endl;
+
 	cout << endl;
-	
+         	
 	stack<string, vector<string> > stackStr;
 	for(char c = 'A'; c <= 'Z'; ++c)
 	{
