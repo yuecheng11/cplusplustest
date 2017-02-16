@@ -1,8 +1,3 @@
- ///
- /// @file    ArrayWrapper.cc
- /// @author  lemon(haohb13@gmail.com)
- /// @date    2016-03-11 11:26:11
- ///
  
 #include <iostream>
 #include <string>
