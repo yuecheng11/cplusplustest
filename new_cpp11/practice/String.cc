@@ -1,8 +1,3 @@
- ///
- /// @file    String.cc
- /// @author  lemon(haohb13@gmail.com)
- /// @date    2016-03-11 09:56:32
- ///
  
 #include <string.h>
 #include <iostream>
