@@ -1,3 +1,4 @@
+//智能指针技术
 #include <iostream>
 using std::cout;
 using std::endl;
