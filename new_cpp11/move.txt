@@ -1,0 +1,10 @@
+
+1. 移动语义
+http://www.dutor.net/index.php/2013/11/rvalue-reference-move-semantics-and-perfect-forwarding/
+
+2. C++中智能指针的工作原理和简单实现
+http://www.cnblogs.com/yangshaoning/archive/2012/03/18/cpp_smart_pointer.html
+
+
+3. shared_ptr
+http://www.cnblogs.com/hujian/archive/2012/12/10/2810754.html
